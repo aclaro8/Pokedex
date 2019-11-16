@@ -57,7 +57,7 @@ class NavbarPoke extends React.Component {  render() {
                   tag={Link}
                 >
                   <i className="ni ni-circle-08" />
-                  <span className="nav-link-inner--text">Pokemon List</span>
+                  <span className="nav-link-inner--text">Pokédex</span>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -67,7 +67,7 @@ class NavbarPoke extends React.Component {  render() {
                   tag={Link}
                 >
                   <i className="ni ni-key-25" />
-                  <span className="nav-link-inner--text">Pokédex</span>
+                  <span className="nav-link-inner--text">Pokémon List</span>
                 </NavLink>
               </NavItem>
             </Nav>

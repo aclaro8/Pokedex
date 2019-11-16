@@ -23,8 +23,15 @@ class Pokedex extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchPokemon();
+        
     }
+
+    toggleModal = state => {
+        console.log('algo');
+        //this.setState({
+          //[state]: !this.state[state]
+        //});
+      };
     fetchPokemon() {
         axios.request({
             url: 'https://pokeapi.co/api/v2/pokemon/' + 2,
@@ -50,13 +57,12 @@ class Pokedex extends React.Component {
     render() {
         return (
             <>
-            
                 <div className="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
                 {/* Page content */}
                 <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
                     <FormGroup className="mb-0">
                         <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend" toggle={() => this.toggleModal("exampleModal")}>
+                            <InputGroupAddon addonType="prepend">
                                 <InputGroupText >
                                     <i className="fas fa-search" />
                                 </InputGroupText>

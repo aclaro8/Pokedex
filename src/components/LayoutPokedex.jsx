@@ -34,7 +34,7 @@ class LayoutPokedex extends React.Component {
             <>
                 <div className="main-content">
                     <NavbarPoke />
-                    <div className="header bg-gradient-info py-7 py-lg-8">
+                    <div className="header bg-red py-7 py-lg-8">
                         <Container>
                             <div className="header-body text-center mb-7">
                                 <Row className="justify-content-center">
