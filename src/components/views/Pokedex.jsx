@@ -11,6 +11,8 @@ import {
     Modal
 } from "reactstrap";
 
+import ModalPokedex from "../ModalPokedex.jsx"
+
 class Pokedex extends React.Component {
     constructor() {
         super();
@@ -18,12 +20,17 @@ class Pokedex extends React.Component {
             idPokemon: "",
             nombrePokemon: "",
             Pokedex: [],
-            Pokemon: ""
+            PokemonBuscado: "25"
         };
     }
 
     componentDidMount() {
-        
+    
+    }
+
+    prueba() {
+        //console.log(pokemon);
+        //this.fetchPokemon();
     }
 
     toggleModal = state => {
@@ -34,7 +41,7 @@ class Pokedex extends React.Component {
       };
     fetchPokemon() {
         axios.request({
-            url: 'https://pokeapi.co/api/v2/pokemon/' + 2,
+            url: 'https://pokeapi.co/api/v2/pokedex/' + 2,
             method: 'get'
         })
             .then(res => {
@@ -57,6 +64,7 @@ class Pokedex extends React.Component {
     render() {
         return (
             <>
+            <ModalPokedex/>
                 <div className="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
                 {/* Page content */}
                 <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
@@ -69,10 +77,11 @@ class Pokedex extends React.Component {
                             </InputGroupAddon>
                             <Input
                                 placeholder="Search"
-                                type="text"
-                                name="Pokemon"
-                                value={this.state.Pokemon}
-                                onChange={this.handleInputChange} />
+                                type="search"
+                                name="PokemonBuscado"
+                                value={this.state.PokemonBuscado}
+                                onChange={this.handleInputChange} 
+                                onClick={this.prueba()}/>
                         </InputGroup>
                     </FormGroup>
                 </Form>

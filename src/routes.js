@@ -5,14 +5,14 @@ var routes = [
   {
     path: "/pokedex",
     name: "Pokédex",
-    icon: "ni ni-spaceship text-primary",
+    icon: "ni ni-mobile-button text-primary",
     component: Pokedex,
     layout: "/auth"
   },
   {
     path: "/pokemonList",
     name: "Pokemon List",
-    icon: "ni ni-calendar-grid-58 text-yellow",
+    icon: "ni ni-list-67 text-yellow",
     component: PokemonList,
     layout: "/auth"
   }

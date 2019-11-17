@@ -22,7 +22,7 @@ class NavbarPoke extends React.Component {  render() {
       >
         <Container className="px-4">
           <NavbarBrand to="/" tag={Link}>
-            <img alt="..." src={require("../assets/img/pokemon.jpg")} />
+            <img alt="..." src={require("../assets/img/pokedex-brand.png")} />
           </NavbarBrand>
           <button className="navbar-toggler" id="navbar-collapse-main">
             <span className="navbar-toggler-icon" />
@@ -34,7 +34,7 @@ class NavbarPoke extends React.Component {  render() {
                   <Link to="/">
                     <img
                       alt="..."
-                      src={require("../assets/img/pokemon.jpg")}
+                      src={require("../assets/img/pokedex-brand.png")}
                     />
                   </Link>
                 </Col>
@@ -56,7 +56,7 @@ class NavbarPoke extends React.Component {  render() {
                   to="/auth/pokedex"
                   tag={Link}
                 >
-                  <i className="ni ni-circle-08" />
+                  <i className="ni ni-mobile-button" />
                   <span className="nav-link-inner--text">Pokédex</span>
                 </NavLink>
               </NavItem>
@@ -66,7 +66,7 @@ class NavbarPoke extends React.Component {  render() {
                   to="/auth/pokemonList"
                   tag={Link}
                 >
-                  <i className="ni ni-key-25" />
+                  <i className="ni ni-bullet-list-67" />
                   <span className="nav-link-inner--text">Pokémon List</span>
                 </NavLink>
               </NavItem>
