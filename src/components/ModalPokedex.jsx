@@ -82,7 +82,6 @@ class Modalpokedex extends React.Component {
     return (
       <>
         {/* Modal */}
-
         <Modal
           className="modal-dialog-centered modal-danger modal-lg"
           isOpen={this.state.exampleModal}
@@ -104,130 +103,131 @@ class Modalpokedex extends React.Component {
           </div>
           <div className="modal-body">
             {/* Contenido */}
-            {this.state.Pokemon.map(pokemon => {
-              return (
-              <div className="pl-lg-4">
-                <Row className="justify-content-center">
-                  <Col className="order-lg-2" lg="3">
-                    <div className="card-profile-image">
-                      <a href="" onClick={e => e.preventDefault()}>
-                        <img
-                          alt="..."
-                          className="rounded-circle"
-                          src={pokemon.sprites.front_default}
+            {/* {this.state.Pokemon.map(pokemon => {
+                      return ( */}
+                <div className="pl-lg-4">
+                  <Row className="justify-content-center">
+                    <Col className="order-lg-2" lg="3">
+                      <div className="card-profile-image">
+                        <a href="" onClick={e => e.preventDefault()}>
+                          <img
+                            alt="..."
+                            className="rounded-circle"
+                            src=""
+                          />
+                        </a>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row className="pt-0 pt-md-8">
+                    <Col lg="12">
+                      <FormGroup>
+                        <label>Descripción</label>
+                        <Input
+                          className="form-control-Label"
+                          placeholder="Descripción"
+                          rows="4"
+                          defaultValue="Pokemón que tiene......"
+                          type="textarea"
+                          disabled
                         />
-                      </a>
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="pt-0 pt-md-8">
-                  <Col lg="12">
-                    <FormGroup>
-                      <label>Descripción {pokemon.species.name}</label>
-                      <Input
-                        className="form-control-Label"
-                        placeholder="Descripción"
-                        rows="4"
-                        defaultValue="Pokemón que tiene......"
-                        type="textarea"
-                        disabled
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <label>Nombre</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="Nombre"
-                        type="text"
-                        name="name"
-                        value={this.state.name}
-                        onChange={this.handleInputChange}
-                        disabled
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
-                    <FormGroup>
-                      <label>Altura</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="Altura"
-                        type="text"
-                        name="altura"
-                        value={this.state.email}
-                        onChange={this.handleInputChange}
-                        disabled
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <label>Peso</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="Peso"
-                        type="text"
-                        name="peso"
-                        value={this.state.pinEntidad}
-                        onChange={this.handleInputChange}
-                        disabled
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
-                    <FormGroup>
-                      <label>Tipo</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="Password"
-                        type="password"
-                        name="password"
-                        value="*************"
-                        onChange={this.handleInputChange}
-                        disabled
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Container className="mt--10" fluid>
-                      <Row>
-                        <Col xl="12">
-                          <Card className="shadow">
-                            <CardHeader className="bg-transparent">
-                              <Row className="align-items-center">
-                                <div className="col">
-                                  <h2 className="mb-0">Puntos de Base</h2>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label>Nombre</label>
+                        <Input
+                          className="form-control-alternative"
+                          placeholder="Nombre"
+                          type="text"
+                          name="name"
+                          value={this.state.name}
+                          onChange={this.handleInputChange}
+                          disabled
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label>Altura</label>
+                        <Input
+                          className="form-control-alternative"
+                          placeholder="Altura"
+                          type="text"
+                          name="altura"
+                          value={this.state.email}
+                          onChange={this.handleInputChange}
+                          disabled
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label>Peso</label>
+                        <Input
+                          className="form-control-alternative"
+                          placeholder="Peso"
+                          type="text"
+                          name="peso"
+                          value={this.state.pinEntidad}
+                          onChange={this.handleInputChange}
+                          disabled
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label>Tipo</label>
+                        <Input
+                          className="form-control-alternative"
+                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          value="*************"
+                          onChange={this.handleInputChange}
+                          disabled
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Container className="mt--10" fluid>
+                        <Row>
+                          <Col xl="12">
+                            <Card className="shadow">
+                              <CardHeader className="bg-transparent">
+                                <Row className="align-items-center">
+                                  <div className="col">
+                                    <h2 className="mb-0">Puntos de Base</h2>
+                                  </div>
+                                </Row>
+                              </CardHeader>
+                              <CardBody>
+                                {/* Chart */}
+                                <div className="chart">
+                                  <Bar
+                                    data={chartExample2.data}
+                                    options={chartExample2.options}
+                                  />
                                 </div>
-                              </Row>
-                            </CardHeader>
-                            <CardBody>
-                              {/* Chart */}
-                              <div className="chart">
-                                <Bar
-                                  data={chartExample2.data}
-                                  options={chartExample2.options}
-                                />
-                              </div>
-                            </CardBody>
-                          </Card>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </Col>
-                </Row>
-              </div>
-              )
-            })}
+                              </CardBody>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </Col>
+                  </Row>
+                </div>
+             {/* )
+            })} */}
             {/* Fin de contenido */}
-            </div>
+          </div>
+
           <div className="modal-footer">
             <Button
               color="secondary"
