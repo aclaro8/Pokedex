@@ -40,15 +40,12 @@ class Pokedex extends React.Component {
     }
 
     onSubmit = (e) => {
-
         console.log(this.state.EnableModal);
         this.state.EnableModal = !this.state.EnableModal;
         console.log(this.state.PokemonBuscado);
         console.log(this.state.EnableModal);
         //window.location.reload(true);
         this.forceUpdate();
-
-
     }
     render() {
         let modalPokedex;
