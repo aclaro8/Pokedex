@@ -34,6 +34,7 @@ class NavbarPoke extends React.Component {  render() {
                   <Link to="/">
                     <img
                       alt="..."
+                      className="img-fluid"
                       src={require("../assets/img/pokedex-brand.png")}
                     />
                   </Link>

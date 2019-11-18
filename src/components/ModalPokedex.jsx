@@ -28,18 +28,26 @@ class Modalpokedex extends React.Component {
   state = {
     exampleModal: true,
     chartExample1Data: "data1",
-    Pokemon: []
+    img: "",
+    name: "",
+    number: "",
+    description: "",
+    category: "",
+    type: "",
+    height: "",
+    weight: "",
+    data: {}
   };
   props = {
-    description: "holaaaaaaaaaaa"
-  }
+    PokemonBuscado: "",
+    EnableModal: false
+  };
 
   toggleModal = state => {
     this.setState({
       [state]: !this.state[state]
     });
   };
-
   toggleNavs = (e, index) => {
     e.preventDefault();
     this.setState({
@@ -61,18 +69,72 @@ class Modalpokedex extends React.Component {
   };
 
   componentDidMount() {
+    this.state.exampleModal=this.props.EnableModal;
     this.fetchPokemon();
+    this.fetchDescription();
   }
+
   fetchPokemon() {
     axios.request({
-      url: 'https://pokeapi.co/api/v2/pokemon/25',
+      url: 'https://pokeapi.co/api/v2/pokemon/' + this.props.PokemonBuscado,
       method: 'get'
     })
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data.stats[5].base_stat);
         this.setState({
-          Pokemon: res.data
+          Pokemon: res.data,
+          img: res.data.sprites.front_default,
+          name: res.data.name,
+          number: res.data.id,
+          type: res.data.types[0].type.name,
+          height: res.data.height,
+          weight: res.data.weight,
+          data: {
+            labels: ["PS", "Ataque", "Defensa", "Ataque Especial", "Defensa Especial", "Velocidad"],
+            datasets: [
+              {
+                label: "Puntos Base",
+                data: [res.data.stats[5].base_stat,
+                res.data.stats[4].base_stat,
+                res.data.stats[3].base_stat,
+                res.data.stats[2].base_stat,
+                res.data.stats[1].base_stat,
+                res.data.stats[0].base_stat]
+              }
+            ]
+          }
         });
+      })
+      .catch(err => {
+        console.log("Error: " + err);
+      })
+  }
+
+  fetchDescription() {
+    axios.request({
+      url: 'https://pokeapi.co/api/v2/pokemon-species/' + this.props.PokemonBuscado,
+      method: 'get'
+    })
+      .then(res => {
+        //console.log(res.data.flavor_text_entries[3].language.name);
+        if (res.data.flavor_text_entries[3].language.name == "es") {
+          this.setState({
+            description: res.data.flavor_text_entries[3].flavor_text,
+          });
+        } else {
+          this.setState({
+            description: res.data.flavor_text_entries[4].flavor_text,
+          });
+        }
+        if (res.data.genera[3].language.name == "es") {
+          this.setState({
+            category: res.data.genera[3].genus
+          });
+        } else {
+          this.setState({
+            category: res.data.genera[4].genus
+          });
+        }
       })
       .catch(err => {
         console.log("Error: " + err);
@@ -89,7 +151,14 @@ class Modalpokedex extends React.Component {
         >
           <div className="modal-header">
             <h1 className="modal-title" id="exampleModalLabel">
-              Pokédex
+              <Col>
+                <img
+                  alt="..."
+                  className="img-fluid"
+                  width="304" height="236"
+                  src={require("../assets/img/pokedex-brand.png")}
+                />
+              </Col>
             </h1>
             <button
               aria-label="Close"
@@ -102,128 +171,89 @@ class Modalpokedex extends React.Component {
             </button>
           </div>
           <div className="modal-body">
-            {/* Contenido */}
-            {/* {this.state.Pokemon.map(pokemon => {
+            <div className="pl-lg-4">
+              <Row>
+                <Col lg="6">
+                  <FormGroup>
+                    <h1>{this.state.name} No. {this.state.number}</h1>
+                    <div>{this.state.description}</div>
+                  </FormGroup>
+                </Col>
+                <Col lg="6">
+                  <FormGroup>
+                    <div className="card-profile-image">
+                      <a href="" onClick={e => e.preventDefault()}>
+                        <img
+                          alt="..."
+                          className="rounded-circle"
+                          src={this.state.img}
+                        />
+                      </a>
+                    </div>
+                  </FormGroup>
+                </Col>
+              </Row>
+              {/* Contenido */}
+              {/* {this.state.Pokemon.map(pokemon => {
                       return ( */}
-                <div className="pl-lg-4">
-                  <Row className="justify-content-center">
-                    <Col className="order-lg-2" lg="3">
-                      <div className="card-profile-image">
-                        <a href="" onClick={e => e.preventDefault()}>
-                          <img
-                            alt="..."
-                            className="rounded-circle"
-                            src=""
-                          />
-                        </a>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="pt-0 pt-md-8">
-                    <Col lg="12">
-                      <FormGroup>
-                        <label>Descripción</label>
-                        <Input
-                          className="form-control-Label"
-                          placeholder="Descripción"
-                          rows="4"
-                          defaultValue="Pokemón que tiene......"
-                          type="textarea"
-                          disabled
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label>Nombre</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="Nombre"
-                          type="text"
-                          name="name"
-                          value={this.state.name}
-                          onChange={this.handleInputChange}
-                          disabled
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label>Altura</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="Altura"
-                          type="text"
-                          name="altura"
-                          value={this.state.email}
-                          onChange={this.handleInputChange}
-                          disabled
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label>Peso</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="Peso"
-                          type="text"
-                          name="peso"
-                          value={this.state.pinEntidad}
-                          onChange={this.handleInputChange}
-                          disabled
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label>Tipo</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="Password"
-                          type="password"
-                          name="password"
-                          value="*************"
-                          onChange={this.handleInputChange}
-                          disabled
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Container className="mt--10" fluid>
-                        <Row>
-                          <Col xl="12">
-                            <Card className="shadow">
-                              <CardHeader className="bg-transparent">
-                                <Row className="align-items-center">
-                                  <div className="col">
-                                    <h2 className="mb-0">Puntos de Base</h2>
-                                  </div>
-                                </Row>
-                              </CardHeader>
-                              <CardBody>
-                                {/* Chart */}
-                                <div className="chart">
-                                  <Bar
-                                    data={chartExample2.data}
-                                    options={chartExample2.options}
-                                  />
-                                </div>
-                              </CardBody>
-                            </Card>
-                          </Col>
-                        </Row>
-                      </Container>
-                    </Col>
-                  </Row>
-                </div>
-             {/* )
+              <Row>
+                <Col lg="6">
+                  <FormGroup>
+                    <h1>Categoría</h1>
+                    <div>{this.state.category}</div>
+                  </FormGroup>
+                </Col>
+                <Col lg="6">
+                  <FormGroup>
+                    <h1>Tipo</h1>
+                    <div>{this.state.type}</div>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col lg="6">
+                  <FormGroup>
+                    <h1>Altura</h1>
+                    <label>0,{this.state.height} m</label>
+                  </FormGroup>
+                </Col>
+                <Col lg="6">
+                  <FormGroup>
+                    <h1>Peso</h1>
+                    <label>{this.state.weight} kg</label>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Container className="mt--10" fluid>
+                    <Row>
+                      <Col xl="12">
+                        <Card className="shadow">
+                          <CardHeader className="bg-transparent">
+                            <Row className="align-items-center">
+                              <div className="col">
+                                <h2 className="mb-0">Puntos Base</h2>
+                              </div>
+                            </Row>
+                          </CardHeader>
+                          <CardBody>
+                            {/* Chart */}
+                            <div className="chart">
+                              <Bar
+                                data={this.state.data}
+                                options={chartExample2.options}
+                              />
+                            </div>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Col>
+              </Row>
+            </div>
+            {/* )
             })} */}
             {/* Fin de contenido */}
           </div>

@@ -15,7 +15,7 @@ class FooterPoke extends React.Component {
                   © 2019{" "}
                   <a
                     className="font-weight-bold ml-1"
-                    href="https://github.com/Xjeso/CheckApp"
+                    href="https://github.com/aclaro8/Pokedex"
                     target="_blank"
                   >
                     Creative by Andrea Claro

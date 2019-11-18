@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import ReactDOM from "react-dom";
 
 import {
     Form,
@@ -8,10 +9,12 @@ import {
     InputGroupText,
     Input,
     InputGroup,
-    Modal
+    Modal,
+    Button
 } from "reactstrap";
 
 import ModalPokedex from "../ModalPokedex.jsx"
+import { toggleModal } from "../ModalPokedex.jsx"
 
 class Pokedex extends React.Component {
     constructor() {
@@ -20,70 +23,71 @@ class Pokedex extends React.Component {
             idPokemon: "",
             nombrePokemon: "",
             Pokedex: [],
-            PokemonBuscado: "25"
+            PokemonBuscado: "",
+            EnableModal: false
         };
     }
 
     componentDidMount() {
-    
+
     }
 
-    prueba() {
-        //console.log(pokemon);
-        //this.fetchPokemon();
-    }
-
-    toggleModal = state => {
-        console.log('algo');
-        //this.setState({
-          //[state]: !this.state[state]
-        //});
-      };
-    fetchPokemon() {
-        axios.request({
-            url: 'https://pokeapi.co/api/v2/pokedex/' + 2,
-            method: 'get'
-        })
-            .then(res => {
-                console.log(res.data.pokemon_entries);
-                this.setState({
-                    Pokedex: res.data.pokemon_entries
-                });
-            })
-            .catch(err => {
-                console.log("Error: " + err);
-            })
-    }
-
-    handleInputChange = (user) => {
-        const { value, name } = user.target;
+    handleInputChange = (data) => {
+        const { value, name } = data.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
-      }
+    }
+
+    onSubmit = (e) => {
+
+        console.log(this.state.EnableModal);
+        this.state.EnableModal = !this.state.EnableModal;
+        console.log(this.state.PokemonBuscado);
+        console.log(this.state.EnableModal);
+        //window.location.reload(true);
+        this.forceUpdate();
+
+
+    }
     render() {
+        let modalPokedex;
+        if (this.state.EnableModal) {
+            modalPokedex = <ModalPokedex PokemonBuscado={this.state.PokemonBuscado} EnableModal={this.state.EnableModal} />
+        }
         return (
             <>
-            <ModalPokedex/>
+                {modalPokedex}
                 <div className="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
                 {/* Page content */}
-                <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                    <FormGroup className="mb-0">
-                        <InputGroup className="input-group-alternative">
+                <Form role="form" onSubmit={this.onSubmit}>
+                    <FormGroup className="mb-3">
+                        <InputGroup className="input-group-prepend">
                             <InputGroupAddon addonType="prepend">
-                                <InputGroupText >
+                                <InputGroupText>
                                     <i className="fas fa-search" />
                                 </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                                placeholder="Search"
-                                type="search"
+                                placeholder="Nombre o número"
+                                type="text"
                                 name="PokemonBuscado"
                                 value={this.state.PokemonBuscado}
-                                onChange={this.handleInputChange} 
-                                onClick={this.prueba()}/>
+                                onChange={this.handleInputChange}
+                                required />
                         </InputGroup>
                     </FormGroup>
+                    <div className="text-center">
+                        <Button
+                            className="my-4"
+                            color="primary"
+                            type="button"
+                            onClick={this
+                                .onSubmit
+                                .bind(this)}>
+                            Buscar
+                  </Button>
+                    </div>
                 </Form>
             </>
         );
